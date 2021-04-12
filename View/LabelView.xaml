@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="CargoLampTest.View.LabelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             DataContext="{Binding VoltMeter, Source={StaticResource Locator}}"
+             Height="auto" Width="auto"
+             
+             >
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontFamily" Value="현대하모니 M" />
+        </Style>
+        <Style x:Key="TextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="현대하모니 M" />
+        </Style>
+        <Style x:Key="LabelGridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="LightGray" />
+        </Style>
+        <Style x:Key="TextGridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="WhiteSmoke" />
+        </Style>
+    </UserControl.Resources>
+    <Grid Width="1100" Height="928" Background="Transparent">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.7*"/>
+
+        </Grid.RowDefinitions>
+        <!-- 화면위쪽 -->
+        <Grid Grid.Column="0" Grid.Row="0" Margin="0 2 0 0" Width="1100" Grid.ColumnSpan="2" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="시리얼포트 #" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+
+            <Grid  Grid.Row="1" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding SerialPortNumber, FallbackValue=2}" Margin="0 0 0 0" HorizontalAlignment="Center"  VerticalAlignment="Center">
+                    
+                </TextBlock>
+            </Grid>
+
+            <Grid  Grid.Row="0"   Grid.Column="5" Grid.ColumnSpan="3"  HorizontalAlignment="Right" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
+                    <Button Content="시작" Command="{Binding StartCommand}" IsEnabled ="{Binding IsStartButtonEnabled}" Height="50" Width="135" Margin=" 0 0 2 0" FontFamily="현대하모니 M" FontSize="20">
+                    </Button>
+                    <Button Content="정지" Command="{Binding StopCommand}"  IsEnabled ="{Binding IsStopButtonEnabled}" Height="50" Width="135" Margin=" 0 0 2 0" FontFamily="현대하모니 M" FontSize="20">
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- 측정 -->
+        <Grid Grid.Column="0" Grid.Row="2" Margin="0 0 0 2" Width="1100" Grid.ColumnSpan="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="7*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="2 0 2 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="측정값" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+
+            <Grid  Grid.Row="1" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="전압1" Margin="0 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid  Grid.Row="2" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="전압2" Margin="0 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+            <Grid  Grid.Row="3" Grid.Column="0" Margin="2 0 0 0" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="전압3" Margin="0 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <Grid  Grid.Row="1" Grid.Column="1" Margin="2 0 0 2" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding MeasureValue1, FallbackValue=10.00V}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid  Grid.Row="2" Grid.Column="1" Margin="2 0 0 2" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding MeasureValue2, FallbackValue=10.00V}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid  Grid.Row="3" Grid.Column="1" Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding MeasureValue3, FallbackValue=10.00V}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+        </Grid>
+        
+        <Grid Grid.Column="0" Grid.Row="3">
+           
+        </Grid>
+
+    </Grid>
+</UserControl>

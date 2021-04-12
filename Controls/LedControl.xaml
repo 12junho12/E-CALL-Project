@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="CargoLampTest.Controls.LedControl"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+         mc:Ignorable="d" 
+         d:DesignHeight="100" d:DesignWidth="300">
+    <UserControl.Resources>
+    </UserControl.Resources>
+    <StackPanel x:Name="gridBigLed" Orientation="Horizontal" >
+        <Border x:Name="border1"
+                BorderThickness="1" 
+                Width="{Binding ActualHeight, ElementName=gridBigLed, Mode=OneWay}" 
+                CornerRadius="{Binding ActualWidth, ElementName=gridBigLed, Mode=OneWay}"
+                HorizontalAlignment="Left">
+            <Border.Background>
+                <RadialGradientBrush GradientOrigin="0.2,0.2">
+                    <GradientStop Color="#FFFFAAAA"/>
+                    <GradientStop x:Name="backgroundColor" Color="PaleGreen" Offset="1.2"/>
+                </RadialGradientBrush>
+            </Border.Background>
+            <Border.BorderBrush>
+                <RadialGradientBrush>
+                    <GradientStop x:Name="GradientColorLow" Color="#FF660000" Offset="0.383"/>
+                    <GradientStop x:Name="GradientColorHigh" Color="#330000" Offset="0.5"/>
+                </RadialGradientBrush>
+            </Border.BorderBrush>
+        </Border>
+        <Label Content="{Binding Text}" x:Name="LEDText" Foreground="Red"    HorizontalContentAlignment="Left" VerticalContentAlignment="Center"/>
+    </StackPanel>
+</UserControl>

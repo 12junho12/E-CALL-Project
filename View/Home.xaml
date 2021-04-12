@@ -1,0 +1,300 @@
+﻿<UserControl x:Class="CargoLampTest.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:local="clr-namespace:CargoLampTest"
+             mc:Ignorable="d" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             DataContext="{Binding Home, Source={StaticResource Locator}}"
+             Height="auto" Width="auto"
+             
+             >
+    <UserControl.Resources>
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontFamily" Value="현대하모니 M" />
+        </Style>
+        <Style x:Key="TextStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="FontFamily" Value="현대하모니 M" />
+        </Style>
+        <Style x:Key="LabelGridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="LightGray" />
+        </Style>
+        <Style x:Key="TextGridStyle" TargetType="Grid">
+            <Setter Property="Background" Value="WhiteSmoke" />
+        </Style>
+    </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding HomeViewLoaded}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <!--A Style that affects all TextBlocks-->
+
+
+    <!-- DataContext="{Binding UserControlGraph, Source={StaticResource ViewModelLocator}}"   -->
+    <Grid Width="1100" Height="928" Background="DarkGray">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="73*"/>
+            <RowDefinition Height="269*"/>
+
+            <RowDefinition Height="49*"/>
+
+        </Grid.RowDefinitions>
+        <!-- 화면위쪽 -->
+        <Grid Grid.Column="0" Grid.Row="0" Margin="0 2 0 0" Grid.ColumnSpan="2" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="시스템 상태" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="1"  Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="라벨 수동발행" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3"  Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="모델선택" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+
+
+            <Grid  Grid.Row="1" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding SystemStatus, FallbackValue=STANBY}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="1" Grid.Column="1" Margin="2 0 0 2" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="수동발행" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid  Background="{Binding LabelColor}" Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"  Margin="2 0 0 2" Style="{StaticResource TextGridStyle}" >
+                <ComboBox ItemsSource="{Binding Models}"
+                            DisplayMemberPath="Name"
+                            SelectedValuePath="PartNumber"
+                            SelectedItem="{Binding SelectedModel, Mode=TwoWay}" 
+                          SelectedIndex="{Binding SelectedModelIndex, Mode=TwoWay}" 
+                          FontFamily="현대하모니 M" FontSize="40" Foreground="DarkBlue"
+                          Margin="30,0,20,0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="290" Height="50" >
+
+                </ComboBox>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="3"  Margin="2 0 0 2" 
+                  Background="{Binding LabelColor}" 
+                  >
+                <TextBox Text="{Binding SelectedPartNumber, Mode=OneWay}" 
+                         FontFamily="현대하모니 M" FontSize="30" Foreground="LightSlateGray"
+                          Margin="30,22,0,22" HorizontalAlignment="Left" VerticalAlignment="Center"  Height="50" 
+                         >
+
+                </TextBox>
+            </Grid>
+
+
+            <Grid  Grid.Row="0"   Grid.Column="5" Grid.ColumnSpan="3"  HorizontalAlignment="Right" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 0 0">
+                    <Button Content="시작" Command="{Binding StartCommand}" IsEnabled ="{Binding IsStartButtonEnabled}" Height="50" Width="135" Margin=" 0 0 2 0" FontFamily="현대하모니 M" FontSize="20">
+                    </Button>
+                    <Button Content="정지" Command="{Binding StopCommand}"  IsEnabled ="{Binding IsStopButtonEnabled}" Height="50" Width="135" Margin=" 0 0 2 0" FontFamily="현대하모니 M" FontSize="20">
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+        <!-- 화면위쪽에서 2번쨰 -->
+        <Grid Grid.Column="0" Grid.Row="1" Margin="0 0 0 2" Grid.ColumnSpan="2" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+                <ColumnDefinition Width="0.75*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0" Grid.Column="0" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="STATION" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="1" Margin="0 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="SELECT" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="2"  Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="운영자" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="3"  Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="C/T" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="4"  Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="전체수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="5" Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="양품수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="6"  Margin="2 0 0 2" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="불량수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+
+
+            <Grid  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"  Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding Station1, FallbackValue=1 STATION}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <!--Grid  Grid.Row="1" Grid.Column="1"  Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding Station2, FallbackValue=2 STATION}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </-->
+            <Grid  Grid.Row="1" Grid.Column="2"  Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding Operator, FallbackValue=마스터}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="1" Grid.Column="3" Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" FontSize="10" Text="{Binding CycleTime, FallbackValue=7s}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="1" Grid.Column="4"  Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}"  Text="{Binding TotalCount, FallbackValue=100}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="1" Grid.Column="5"  Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding OKCount, FallbackValue=100}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="1" Grid.Column="6"  Margin="2 0 0 0" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding NGCount, FallbackValue=0}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+
+        </Grid>
+
+        <!-- 바코드 -->
+        <Grid Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,54,0,87" Grid.RowSpan="2" >
+            <Grid Margin="663,0,0,419" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="#2Site" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+            </Grid>
+            <Grid Margin="0,79,876,313" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="다운로드" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+            </Grid>
+            <Grid Margin="0,185,876,207" Style="{StaticResource LabelGridStyle}" RenderTransformOrigin="0.5,0.5" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="전류검사" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"/>
+            </Grid>
+            <Grid Margin="227,185,440,207" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding FinalResult, FallbackValue=OK/NG}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid Margin="227,79,440,313" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding FinalResult, FallbackValue=OK/NG}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid Margin="663,185,0,207" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding FinalResult, FallbackValue=OK/NG}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid Margin="663,79,0,313" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding FinalResult, FallbackValue=OK/NG}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+            <Grid Grid.Column="0" Margin="0,0,876,419" Style="{StaticResource LabelGridStyle}" Background="LightGray" >
+                <TextBlock Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0" Foreground="Gray"><Run Text="개별"/><Run Text="판정"/></TextBlock>
+            </Grid>
+            <Grid Margin="227,0,440,419" Style="{StaticResource LabelGridStyle}" >
+                <TextBlock Style="{StaticResource LabelStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"><Run Text="#"/><Run Text="1"/><Run Text="Site"/></TextBlock>
+            </Grid>
+            <Grid Grid.Column="0" Margin="0,291,0,128" Style="{StaticResource LabelGridStyle}" Background="LightGray" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="최종판정" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0" Foreground="Gray"/>
+            </Grid>
+            <Grid Margin="0,370,0,22" Style="{StaticResource TextGridStyle}" >
+                <TextBlock Style="{StaticResource TextStyle}" Text="{Binding FinalResult, FallbackValue=OK/NG}"  Margin="30 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            </Grid>
+        </Grid>
+
+        <!-- 데이타그리드 -->
+
+        <!-- 화면하단 -->
+        <Grid Grid.Column="0" Grid.Row="2" Margin="0,528,0,14" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="367*"/>
+                <ColumnDefinition Width="366*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="317*"/>
+                <!--ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/-->
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid  Grid.Row="0" Grid.Column="0" Margin="2,3,0,49" Style="{StaticResource LabelGridStyle}" Grid.RowSpan="2" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="양품수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="1" Margin="2,3,0,49" Style="{StaticResource LabelGridStyle}" Grid.RowSpan="2" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="불량수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="2" Margin="2,3,0,49" Style="{StaticResource LabelGridStyle}" Grid.ColumnSpan="2" Grid.RowSpan="2" >
+                <TextBlock Style="{StaticResource LabelStyle}" Text="핀블록카운트" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+            </Grid>
+
+            <Grid Grid.Column="0" Margin="2,16,0,2" Style="{StaticResource TextGridStyle}" Grid.Row="1" >
+                <TextBlock Style="{StaticResource TextStyle}" 
+                           Text="{Binding TotalOKCount, FallbackValue=50}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <Grid Grid.Column="1" Margin="2,16,0,2" Style="{StaticResource TextGridStyle}" Grid.Row="1" >
+                <TextBlock Style="{StaticResource TextStyle}"  
+                           Text="{Binding TotalNGCount, FallbackValue=0}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+
+            </Grid>
+            <Grid Grid.Column="2" Margin="2,16,0,2" Style="{StaticResource TextGridStyle}" Grid.ColumnSpan="2" Grid.Row="1" >
+                <TextBlock Style="{StaticResource TextStyle}" 
+                           Text="{Binding PinBlockCount, FallbackValue=50}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+            </Grid>
+            <!--Grid  Grid.Row="0" Grid.Column="3">
+                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource LabelStyle}" Text="양품수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+                    <TextBlock Style="{StaticResource TextStyle}" Text="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+                </StackPanel>
+            </>
+            <Grid  Grid.Row="0" Grid.Column="4"  Margin="00 0 0 0">
+                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource LabelStyle}" Text="불량수량" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+                    <TextBlock Style="{StaticResource TextStyle}"  Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+                </StackPanel>
+            </Grid>
+            <Grid  Grid.Row="0" Grid.Column="5"  Margin="0 0 0 0">
+                <StackPanel Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource LabelStyle}" Text="핀블럭카운트" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"></TextBlock>
+                    <TextBlock Style="{StaticResource TextStyle}" Text="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 10 0 0"></TextBlock>
+                </StackPanel>
+            </Grid-->
+        </Grid>
+
+    </Grid>
+</UserControl>
